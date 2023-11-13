@@ -1,2 +1,2 @@
 ## Description
-+ The folder provide api informations.
++ The folder provides api informations.
