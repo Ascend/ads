@@ -83,6 +83,7 @@ function main()
 
     check_python_version
 
+    cd ${CUR_DIR}/..
     python"${PY_VERSION}" setup.py build bdist_wheel
     if [ $? != 0 ]; then
         echo "Failed to compile the wheel file. Please check the source code by yourself."
