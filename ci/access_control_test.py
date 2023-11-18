@@ -115,7 +115,7 @@ class DirectoryStrategy(AccurateTest):
     """
 
     def identify(self, modify_file):
-        is_test_file = str(Path(modify_file).parts[0]) == "test" \
+        is_test_file = str(Path(modify_file).parts[0]) == "tests" \
             and re.match("test_(.+).py", Path(modify_file).name)
         return [(str(BASE_DIR / modify_file))] if is_test_file else []
 
