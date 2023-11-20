@@ -1,17 +1,16 @@
 import os
 import glob
 from setuptools import setup, find_packages
-# from torch_npu.utils import cpp_extension
 from torch.utils.cpp_extension import BuildExtension
-import cpp_extension
+from utils import extension
 
 source_file = []
-source_file += glob.glob(os.path.join("./common/ops/csrc/", "*.cpp"))
-source_file += glob.glob(os.path.join("./common/ops/", "*.cpp"))
+source_file += glob.glob(os.path.join("./ads/common/ops/csrc/", "*.cpp"))
+source_file += glob.glob(os.path.join("./bind/", "*.cpp"))
 
 exts = []
-ext1 = cpp_extension.NpuExtension(
-    name="ads",
+ext1 = extension.NpuExtension(
+    name="ads_c",
     sources=source_file,
 )
 
@@ -19,7 +18,7 @@ exts.append(ext1)
 setup(
     name="ads",
     version="1.0",
-    description='Cpp Extension Include ascend_accelerator',
+    description='Cpp Extension Include ascend_ads',
     keywords='ads',
     ext_modules=exts,
     author='Ascend Contributors',
