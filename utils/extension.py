@@ -15,6 +15,7 @@
 
 
 import os
+import site
 
 import setuptools
 import torch
@@ -24,7 +25,8 @@ try:
     import torch_npu
     PYTORCH_NPU_INSTALL_PATH = os.path.dirname(os.path.realpath(torch_npu.__file__))
 except:
-    PYTORCH_NPU_INSTALL_PATH = "/opt/_internal/cpython-3.7.5/lib/python3.7/site-packages/torch_npu/"
+    site_packages_path = site.getsitepackages()
+    PYTORCH_NPU_INSTALL_PATH = site_packages_path[0] + "/torch_npu/"
 
 
 def NpuExtension(name, sources, *args, **kwargs):
