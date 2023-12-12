@@ -42,3 +42,4 @@ at::Tensor npu_scatter(const at::Tensor& self, const at::Tensor& indices, const 
 at::Tensor npu_rotary_mul(const at::Tensor &self, const at::Tensor &r1, const at::Tensor &r2);
 at::Tensor npu_silu(const at::Tensor& self);
 at::Tensor& npu_silu_(at::Tensor& self);
+at::Tensor npu_abs(const at::Tensor& self);

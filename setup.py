@@ -8,10 +8,16 @@ source_file = []
 source_file += glob.glob(os.path.join("./ads/common/ops/csrc/", "*.cpp"))
 source_file += glob.glob(os.path.join("./bind/", "*.cpp"))
 
+torch_npu_dir = extension.PYTORCH_NPU_INSTALL_PATH
+include_dirs = []
+include_dirs.append(torch_npu_dir + "/include/third_party/acl/inc/")
+
 exts = []
 ext1 = extension.NpuExtension(
     name="ads_c",
     sources=source_file,
+    include_dirs=include_dirs,
+    extra_compile_args=['-D__FILENAME__=\"$$(notdir $$(abspath $$<))\"'],
 )
 
 exts.append(ext1)

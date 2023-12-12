@@ -41,4 +41,6 @@ void init_common(pybind11::module &m)
 
     // rotary mul
     m.def("npu_rotary_mul", &npu_rotary_mul);
+
+    m.def("npu_abs", &npu_abs);
 }

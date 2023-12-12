@@ -13,3 +13,4 @@ from .ops.scatter import npu_scatter
 from .ops.silu import npu_silu
 from .ops.silu import npu_silu_
 from .ops.rotary_mul import npu_rotary_mul
+from .ops.npu_abs import npu_abs
