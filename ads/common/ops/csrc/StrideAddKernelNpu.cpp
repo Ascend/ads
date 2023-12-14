@@ -14,15 +14,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <torch/csrc/autograd/custom_function.h>
 #include "torch_npu/csrc/framework/OpCommand.h"
-#include "torch_npu/csrc/framework/utils/OpPreparation.h"
-#include "torch_npu/csrc/framework/utils/NpuUtils.h"
-#include "torch_npu/csrc/aten/NPUNativeFunctions.h"
 #include "functions.h"
 #include "common.h"
 
-using npu_preparation = at_npu::native::OpPreparation;
 
 namespace {
 at::Tensor &stride_add_out_npu_nocheck(

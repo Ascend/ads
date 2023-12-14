@@ -14,3 +14,10 @@ from .ops.silu import npu_silu
 from .ops.silu import npu_silu_
 from .ops.rotary_mul import npu_rotary_mul
 from .ops.npu_abs import npu_abs
+from .ops.fast_gelu import fast_gelu
+from .ops.npu_anchor_response_flags import npu_anchor_response_flags
+from .ops.npu_bounding_box_decode import npu_bounding_box_decode
+from .ops.npu_bounding_box_encode import npu_bounding_box_encode
+from .ops.npu_batch_nms import npu_batch_nms
+from .ops.npu_confusion_transpose import npu_confusion_transpose
+from .ops.npu_broadcast import npu_broadcast

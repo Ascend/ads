@@ -14,18 +14,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <torch/csrc/autograd/custom_function.h>
 #include "torch_npu/csrc/framework/OpCommand.h"
-#include "torch_npu/csrc/framework/utils/OpPreparation.h"
-#include "torch_npu/csrc/framework/utils/NpuUtils.h"
-#include "torch_npu/csrc/aten/NPUNativeFunctions.h"
-#include "torch_npu/csrc/aten/CustomFunctions.h"
 #include "functions.h"
 #include "common.h"
 
-using npu_preparation = at_npu::native::OpPreparation;
-using torch::autograd::Function;
-using torch::autograd::AutogradContext;
 using tensor_tuple = std::tuple<at::Tensor, at::Tensor, at::Tensor>;
 
 namespace {
@@ -42,7 +34,7 @@ at::Tensor &rotary_mul_nocheck(at::Tensor &y, const at::Tensor &x, const at::Ten
     return y;
 }
 
-tensor_tuple rotary_mul_backward_nocheck(at::Tensor &dx, at::Tensor &dr1, at::Tensor &dr2, const at::Tensor &x, 
+tensor_tuple rotary_mul_backward_nocheck(at::Tensor &dx, at::Tensor &dr1, at::Tensor &dr2, const at::Tensor &x,
     const at::Tensor &r1, const at::Tensor &r2, const at::Tensor &dy)
 {
     TORCH_CHECK(x.dim() == 4, "The dim of input tensor [x] shoule equal to four.");

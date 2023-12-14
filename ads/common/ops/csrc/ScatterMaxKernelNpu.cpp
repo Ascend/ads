@@ -1,15 +1,7 @@
-#include <torch/extension.h>
-
 #include "torch_npu/csrc/framework/OpCommand.h"
-#include "torch_npu/csrc/framework/utils/OpPreparation.h"
-#include "torch_npu/csrc/framework/utils/NpuUtils.h"
+#include "common.h"
 
-using namespace at;
 using namespace std;
-
-using torch::autograd::Function;
-using torch::autograd::AutogradContext;
-using tensor_list = std::vector<at::Tensor>;
 
 std::tuple<at::Tensor, at::Tensor> npu_scatter_max(
     const at::Tensor& updates,
@@ -21,7 +13,7 @@ std::tuple<at::Tensor, at::Tensor> npu_scatter_max(
     sizes[0] = indices.max().item().toLong() + 1;
 
     at::Tensor result = out.value_or(at::zeros(sizes, updates.options().dtype(at::kFloat)));
-    at::Tensor argmax = at_npu::native::OpPreparation::ApplyTensor(result, result.options().dtype(at::kInt));
+    at::Tensor argmax = at::empty(result.sizes(), result.options().dtype(at::kInt));
 
     at_npu::native::OpCommand cmd;
     cmd.Name("ScatterMaxWithArgmax")
@@ -37,7 +29,7 @@ std::tuple<at::Tensor, at::Tensor> npu_scatter_max(
 
 at::Tensor npu_scatter_max_backward(const at::Tensor& x, const at::Tensor& segment_ids, const at::Tensor& num_segments)
 {
-    c10::SmallVector<int64_t, at_npu::native::N> output_size;
+    c10::SmallVector<int64_t, N> output_size;
 
     auto num_segments_value = num_segments.item().toLong();
     output_size.push_back(num_segments_value);
@@ -47,7 +39,7 @@ at::Tensor npu_scatter_max_backward(const at::Tensor& x, const at::Tensor& segme
 
     copy(x_sizes.begin() + segment_ids_dims, x_sizes.end(), std::back_inserter(output_size));
 
-    at::Tensor out = at_npu::native::OpPreparation::ApplyTensor(x, output_size);
+    at::Tensor out = at::empty(output_size, x.options());
     at_npu::native::OpCommand cmd;
     cmd.Name("UnsortedSegmentSum")
         .Input(x)

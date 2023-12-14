@@ -15,12 +15,8 @@
 // limitations under the License.
 
 #include "torch_npu/csrc/framework/OpCommand.h"
-#include "torch_npu/csrc/framework/utils/OpPreparation.h"
-#include "torch_npu/csrc/framework/utils/NpuUtils.h"
-#include "torch_npu/csrc/aten/NPUNativeFunctions.h"
 #include "functions.h"
 
-using npu_preparation = at_npu::native::OpPreparation;
 
 at::Tensor npu_scatter(const at::Tensor &self, const at::Tensor &indices, const at::Tensor &updates, int64_t dim)
 {

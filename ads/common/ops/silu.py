@@ -13,7 +13,7 @@ class SiluFunction(Function):
         result = func(input)
         ctx.save_for_backward(input, result)
         return result
-    
+
     @staticmethod
     def backward(ctx, grad_outputs):
         x0, x1 = ctx.saved_tensors

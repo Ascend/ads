@@ -43,4 +43,27 @@ void init_common(pybind11::module &m)
     m.def("npu_rotary_mul", &npu_rotary_mul);
 
     m.def("npu_abs", &npu_abs);
+
+    // npu_fast_gelu
+    m.def("npu_fast_gelu", &npu_fast_gelu);
+    m.def("npu_fast_gelu_backward", &npu_fast_gelu_backward);
+
+    // npu_anchor_response_flags
+    m.def("npu_anchor_response_flags", &npu_anchor_response_flags);
+
+    // npu_bounding_box_decode
+    m.def("npu_bounding_box_decode", &npu_bounding_box_decode);
+
+    // npu_bounding_box_encode
+    m.def("npu_bounding_box_encode", &npu_bounding_box_encode);
+
+    // npu_batch_nms
+    m.def("npu_batch_nms", &npu_batch_nms);
+
+    // npu_confusion_transpose
+    m.def("npu_confusion_transpose", &npu_confusion_transpose);
+    m.def("npu_confusion_transpose_backward", &npu_confusion_transpose_backward);
+
+    // npu_broadcast
+    m.def("npu_broadcast", &npu_broadcast);
 }

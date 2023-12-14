@@ -13,27 +13,37 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 #include "torch_npu/csrc/framework/OpCommand.h"
-#include "functions.h"
 
-at::Tensor npu_rotated_box_encode(
-    const at::Tensor &self,
-    const at::Tensor &gtBox,
-    const at::Tensor &weight)
+
+namespace {
+at::Tensor& npu_broadcast_out_nocheck(at::Tensor& result, const at::Tensor& self, at::IntArrayRef size)
 {
-    at::Tensor result = at::empty(self.sizes(), self.options());
-    at::Tensor weight_cpu = weight.to(at::Device(at::kCPU), at::kFloat);
-    auto weight_ptr = weight_cpu.data_ptr<float>();
-    TORCH_CHECK(weight_ptr != nullptr, "weight_cpu is null")
-    at::ArrayRef<float> weight_list(weight_ptr, weight_cpu.numel());
-
     at_npu::native::OpCommand cmd;
-    cmd.Name("RotatedBoxEncode")
+    cmd.Name("BroadcastTo")
         .Input(self)
-        .Input(gtBox)
+        .Input(size)
         .Output(result)
-        .Attr("weight", weight_list)
         .Run();
+    return result;
+}
+} // namespace
+
+at::Tensor& npu_broadcast_out(const at::Tensor& self, at::IntArrayRef size, at::Tensor& result)
+{
+    npu_broadcast_out_nocheck(result, self, size);
+
+    return result;
+}
+
+at::Tensor npu_broadcast(const at::Tensor& self, at::IntArrayRef size)
+{
+    at::Tensor self_cp = self.dtype() == at::kBool ? self.to(at::kInt) : self;
+    at::Tensor result = at::empty(size, self_cp.options());
+    npu_broadcast_out_nocheck(result, self_cp, size);
+
+    if (self.dtype() == at::kBool) {
+        result = result.to(at::kBool);
+    }
     return result;
 }

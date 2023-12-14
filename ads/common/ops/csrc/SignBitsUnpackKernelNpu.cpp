@@ -15,13 +15,9 @@
 // limitations under the License.
 
 #include "torch_npu/csrc/framework/OpCommand.h"
-#include "torch_npu/csrc/framework/utils/OpPreparation.h"
-#include "torch_npu/csrc/framework/utils/NpuUtils.h"
-#include "torch_npu/csrc/aten/NPUNativeFunctions.h"
 #include "functions.h"
 #include "common.h"
 
-using npu_preparation = at_npu::native::OpPreparation;
 
 at::Tensor npu_sign_bits_unpack_compute(
     const at::Tensor &input,

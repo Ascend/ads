@@ -1,12 +1,9 @@
 #include <unordered_map>
 #include "torch_npu/csrc/framework/utils/CalcuOpUtil.h"
-#include "torch_npu/csrc/framework/utils/NpuUtils.h"
 #include "torch_npu/csrc/aten/mirror/NPUMemoryOverlap.h"
-#include "torch_npu/csrc/aten/NPUNativeFunctions.h"
 #include "third_party/acl/inc/acl/acl_base.h"
 #include "common.h"
 
-using npu_utils = at_npu::native::NpuUtils;
 using CalcuOpUtil = at_npu::native::CalcuOpUtil;
 
 #define AT_ALL_SCALAR_TYPE_AND_ACL_DATATYPE_PAIR(_)  \

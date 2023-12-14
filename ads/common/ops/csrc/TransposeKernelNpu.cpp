@@ -15,13 +15,8 @@
 // limitations under the License.
 
 #include "torch_npu/csrc/framework/OpCommand.h"
-#include "torch_npu/csrc/framework/utils/OpPreparation.h"
-#include "torch_npu/csrc/framework/utils/NpuUtils.h"
-#include "torch_npu/csrc/aten/NPUNativeFunctions.h"
 #include "functions.h"
 #include "common.h"
-
-using npu_utils = at_npu::native::NpuUtils;
 
 namespace {
 at::Tensor &npu_transpose_out_nocheck(

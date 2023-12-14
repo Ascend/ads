@@ -1,3 +1,5 @@
+#ifndef __COMMON_H__
+#define __COMMON_H__
 #include <ATen/ATen.h>
 #include <string>
 #include <tuple>
@@ -26,4 +28,6 @@ c10::SmallVector<int64_t, N> convert_array_to_vector(c10::IntArrayRef intArray);
 c10::SmallVector<int64_t, SIZE> infersize_stride_add(c10::IntArrayRef shape1_, c10::IntArrayRef shape2_);
 c10::SmallVector<int64_t, SIZE> transpose_npu_output_size(const at::Tensor &self, c10::IntArrayRef perm);
 bool check_match(const at::Tensor &self);
-void format_fresh_view(at::Tensor &x, const at::Tensor &y); 
+void format_fresh_view(at::Tensor &x, const at::Tensor &y);
+
+#endif // __COMMON_H__
